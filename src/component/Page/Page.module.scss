@@ -1,0 +1,10 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 502px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}

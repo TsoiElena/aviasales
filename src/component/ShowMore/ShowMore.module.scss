@@ -1,0 +1,19 @@
+@import '../../index';
+
+.showMore {
+  color: $background-color;
+  text-align: center;
+  font-family: Open Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 166.667% */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-block;
+  width: 100%;
+  background-color: $base-color;
+  border: none;
+  height: 50px;
+  border-radius: 5px;
+}
