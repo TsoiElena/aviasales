@@ -11,7 +11,8 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-redux/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -22,8 +23,9 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "prettier", "import", "@typescript-eslint"],
+  "plugins": ["react", "prettier", "import", "@typescript-eslint", "react-redux"],
   "rules": {
+    "react-redux/connect-prefer-named-arguments": 2,
     "indent": "off",
     "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
@@ -49,6 +51,9 @@
     ]
   },
   "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
