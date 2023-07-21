@@ -1,8 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
-import { menuActionTypes } from '../../types/reducersTypes';
-import { useTypeSelector } from '../../hooks/useTypeSelector';
+import { menuActionTypes } from '../../redux/menu-reducer';
+import { useAppSelector, useAppDispatch } from '../../hooks/useTypeSelector';
 import { chip, fast, opt } from '../../redux/menu-reducer';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -10,8 +9,8 @@ import { chip, fast, opt } from '../../redux/menu-reducer';
 import s from './Menu.module.scss';
 
 const Menu: React.FC = () => {
-  const { sort } = useTypeSelector((state) => state.menuComponent);
-  const dispatch = useDispatch();
+  const { sort } = useAppSelector((state) => state.menuComponent);
+  const dispatch = useAppDispatch();
   console.log(sort);
   const handleClick = (e: any) => {
     e.preventDefault();

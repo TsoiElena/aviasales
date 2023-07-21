@@ -1,6 +1,8 @@
+import { Dispatch } from 'redux';
+
 import { filtersActionTypes, filtersState, filtersAction } from '../types/reducersTypes';
 
-import { AppDispatch, AppThunk } from './redux-store';
+import { AppDispatch } from './redux-store';
 
 const initialState: filtersState = {
   all: false,
@@ -38,16 +40,13 @@ const oneTransfer = (value: boolean) => ({ type: filtersActionTypes.ONE, value }
 const twoTransfer = (value: boolean) => ({ type: filtersActionTypes.TWO, value });
 const threeTransfer = (value: boolean) => ({ type: filtersActionTypes.THREE, value });
 
-export const allAC =
-  (value: boolean): AppThunk =>
-  (dispach) => {
-    console.log(1);
+export const allAC = (value: boolean) => {
+  console.log(5);
+  return (dispach: Dispatch<filtersAction>) => {
     dispach(all(value));
-    dispach(withoutTransfer(value));
-    dispach(oneTransfer(value));
-    dispach(twoTransfer(value));
-    dispach(threeTransfer(value));
+    console.log(1);
   };
+};
 
 export const withoutTransferAC = (value: boolean) => (dispach: AppDispatch) => {
   dispach(withoutTransfer(value));

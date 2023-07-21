@@ -1,30 +1,3 @@
-export interface MenuState {
-  sort: string;
-}
-
-export enum menuActionTypes {
-  CHIP = 'chip',
-  FAST = 'fast',
-  OPT = 'optimal',
-}
-
-export interface chipAction {
-  type: menuActionTypes.CHIP;
-  value: string;
-}
-
-export interface fastAction {
-  type: menuActionTypes.FAST;
-  value: string;
-}
-
-export interface optAction {
-  type: menuActionTypes.OPT;
-  value: string;
-}
-
-export type menuAction = chipAction | fastAction | optAction;
-
 export enum filtersActionTypes {
   ALL = 'all',
   WIHTHOUT = 'WIHTHOUT',

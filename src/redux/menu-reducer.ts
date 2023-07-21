@@ -1,27 +1,35 @@
-import { MenuState, menuAction, menuActionTypes } from '../types/reducersTypes';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+export interface MenuState {
+  sort: string;
+}
+
+export enum menuActionTypes {
+  CHIP = 'chip',
+  FAST = 'fast',
+  OPT = 'optimal',
+}
 
 const initialState: MenuState = {
-  sort: 'chip',
+  sort: menuActionTypes.CHIP,
 };
 
-const menuReducer = (state = initialState, action: menuAction): MenuState => {
-  switch (action.type) {
-    case menuActionTypes.CHIP:
-      return { sort: action.value };
+const menuSlice = createSlice({
+  name: 'menuComponent',
+  initialState,
+  reducers: {
+    chip(state, action: PayloadAction<string>) {
+      state.sort = action.payload;
+    },
+    fast(state, action: PayloadAction<string>) {
+      state.sort = action.payload;
+    },
+    opt(state, action: PayloadAction<string>) {
+      state.sort = action.payload;
+    },
+  },
+});
 
-    case menuActionTypes.FAST:
-      return { sort: action.value };
+export const { chip, fast, opt } = menuSlice.actions;
 
-    case menuActionTypes.OPT:
-      return { sort: action.value };
-
-    default:
-      return state;
-  }
-};
-
-export const chip = (value: string) => ({ type: menuActionTypes.CHIP, value });
-export const fast = (value: string) => ({ type: menuActionTypes.FAST, value });
-export const opt = (value: string) => ({ type: menuActionTypes.OPT, value });
-
-export default menuReducer;
+export default menuSlice.reducer;
