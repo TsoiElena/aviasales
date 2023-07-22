@@ -1,8 +1,12 @@
-import { Dispatch } from 'redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { filtersActionTypes, filtersState, filtersAction } from '../types/reducersTypes';
-
-import { AppDispatch } from './redux-store';
+export interface filtersState {
+  all: boolean;
+  withoutTransfer: boolean;
+  oneTransfer: boolean;
+  twoTransfer: boolean;
+  threeTransfer: boolean;
+}
 
 const initialState: filtersState = {
   all: false,
@@ -12,56 +16,44 @@ const initialState: filtersState = {
   threeTransfer: false,
 };
 
-const filtersReducer = (state = initialState, action: filtersAction): filtersState => {
-  switch (action.type) {
-    case filtersActionTypes.ALL:
-      return { ...state, all: action.value };
+const filtersSlice = createSlice({
+  name: 'filterComponent',
+  initialState,
+  reducers: {
+    allAC(state, action: PayloadAction<boolean>) {
+      state.all = action.payload;
+      state.withoutTransfer = action.payload;
+      state.oneTransfer = action.payload;
+      state.twoTransfer = action.payload;
+      state.threeTransfer = action.payload;
+    },
+    withoutAC(state, action: PayloadAction<boolean>) {
+      state.withoutTransfer = action.payload;
+      if (!action.payload && state.all) state.all = action.payload;
+      if (action.payload && state.oneTransfer && state.twoTransfer && state.threeTransfer && !state.all)
+        state.all = action.payload;
+    },
+    oneAC(state, action: PayloadAction<boolean>) {
+      state.oneTransfer = action.payload;
+      if (!action.payload && state.all) state.all = action.payload;
+      if (action.payload && state.withoutTransfer && state.twoTransfer && state.threeTransfer && !state.all)
+        state.all = action.payload;
+    },
+    twoAC(state, action: PayloadAction<boolean>) {
+      state.twoTransfer = action.payload;
+      if (!action.payload && state.all) state.all = action.payload;
+      if (action.payload && state.oneTransfer && state.withoutTransfer && state.threeTransfer && !state.all)
+        state.all = action.payload;
+    },
+    threeAC(state, action: PayloadAction<boolean>) {
+      state.threeTransfer = action.payload;
+      if (!action.payload && state.all) state.all = action.payload;
+      if (action.payload && state.oneTransfer && state.twoTransfer && state.withoutTransfer && !state.all)
+        state.all = action.payload;
+    },
+  },
+});
 
-    case filtersActionTypes.WIHTHOUT:
-      return { ...state, withoutTransfer: action.value };
+export const { allAC, withoutAC, oneAC, twoAC, threeAC } = filtersSlice.actions;
 
-    case filtersActionTypes.ONE:
-      return { ...state, oneTransfer: action.value };
-
-    case filtersActionTypes.TWO:
-      return { ...state, twoTransfer: action.value };
-
-    case filtersActionTypes.THREE:
-      return { ...state, threeTransfer: action.value };
-
-    default:
-      return state;
-  }
-};
-
-const all = (value: boolean) => ({ type: filtersActionTypes.ALL, value });
-const withoutTransfer = (value: boolean) => ({ type: filtersActionTypes.WIHTHOUT, value });
-const oneTransfer = (value: boolean) => ({ type: filtersActionTypes.ONE, value });
-const twoTransfer = (value: boolean) => ({ type: filtersActionTypes.TWO, value });
-const threeTransfer = (value: boolean) => ({ type: filtersActionTypes.THREE, value });
-
-export const allAC = (value: boolean) => {
-  console.log(5);
-  return (dispach: Dispatch<filtersAction>) => {
-    dispach(all(value));
-    console.log(1);
-  };
-};
-
-export const withoutTransferAC = (value: boolean) => (dispach: AppDispatch) => {
-  dispach(withoutTransfer(value));
-};
-
-export const oneTransferAC = (value: boolean) => (dispach: AppDispatch) => {
-  dispach(oneTransfer(value));
-};
-
-export const twoTransferAC = (value: boolean) => (dispach: AppDispatch) => {
-  dispach(twoTransfer(value));
-};
-
-export const threeTransferAC = (value: boolean) => (dispach: AppDispatch) => {
-  dispach(threeTransfer(value));
-};
-
-export default filtersReducer;
+export default filtersSlice.reducer;
