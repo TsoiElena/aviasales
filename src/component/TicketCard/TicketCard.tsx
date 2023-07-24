@@ -4,22 +4,27 @@ import React from 'react';
 // @ts-ignore
 import logo from '../../assets/S7 Logo.png';
 import Ticket from '../Ticket/Ticket';
+import { tiketType } from '../../types/types';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import s from './TicketCard.module.scss';
 
-const TicketCard = () => {
+type tiketCardType = {
+  ticket: tiketType;
+};
+
+const TicketCard: React.FC<tiketCardType> = ({ ticket }) => {
   return (
     <div className={s.card}>
       <div className={s['card-info']}>
-        <div className={s['card-price']}>13 400 Р</div>
+        <div className={s['card-price']}>{ticket.price} Р</div>
         <div>
           <img src={logo} alt="" />
         </div>
       </div>
-      <Ticket />
-      <Ticket />
+      <Ticket info={ticket.segments[0]} />
+      <Ticket info={ticket.segments[1]} />
     </div>
   );
 };

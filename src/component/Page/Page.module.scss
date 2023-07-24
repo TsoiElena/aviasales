@@ -1,3 +1,5 @@
+@import '../../index';
+
 .page {
   display: flex;
   flex-direction: column;
@@ -6,5 +8,19 @@
 
   @media (max-width: 768px) {
     width: 100%;
+  }
+
+  .error {
+    border: 1px solid black;
+    padding: 10px;
+    background-color: #ff958c;
+    border-radius: 10px;
+    font-family: Open Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; /* 166.667% */
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
 }

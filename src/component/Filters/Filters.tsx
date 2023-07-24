@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypeSelector';
 import { allAC, withoutAC, oneAC, twoAC, threeAC } from '../../redux/filters-reducer';
+import { load } from '../../redux/tikets-reducer';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -13,6 +14,7 @@ const Filters = () => {
   );
   const dispatch = useAppDispatch();
   const handleChange = (s: string) => {
+    dispatch(load(true));
     if (s === 'a') all ? dispatch(allAC(false)) : dispatch(allAC(true));
     if (s === 'w') withoutTransfer ? dispatch(withoutAC(false)) : dispatch(withoutAC(true));
     if (s === 'o') oneTransfer ? dispatch(oneAC(false)) : dispatch(oneAC(true));

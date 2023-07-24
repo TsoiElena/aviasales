@@ -1,23 +1,55 @@
 import React from 'react';
+import add from 'date-fns/add';
+import format from 'date-fns/format';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import s from './Ticket.module.scss';
 
-const Ticket = () => {
+type ticketInfo = {
+  origin: string;
+  destination: string;
+  date: string;
+  stops: string[];
+  duration: number;
+};
+
+type TicketProps = {
+  info: ticketInfo;
+};
+
+const Ticket: React.FC<TicketProps> = ({ info }) => {
+  const after = add(new Date(info.date), {
+    years: 0,
+    months: 0,
+    weeks: 0,
+    days: 0,
+    hours: 0,
+    minutes: info.duration,
+    seconds: 0,
+  });
   return (
     <div className={s.ticket}>
       <div>
-        <div className={s['ticket-title']}>MOW - HKT</div>
-        <div className={s['ticket-info']}>10:45 - 08:00</div>
+        <div className={s['ticket-title']}>
+          {info.origin} - {info.destination}
+        </div>
+        <div className={s['ticket-info']}>
+          {format(new Date(info.date), 'hh')}:{format(new Date(info.date), 'mm')} - {format(new Date(after), 'hh')}:
+          {format(new Date(after), 'mm')}
+        </div>
       </div>
       <div>
         <div className={s['ticket-title']}>В пути</div>
-        <div className={s['ticket-info']}>21ч 15м</div>
+        <div className={s['ticket-info']}>
+          {Math.floor(info.duration / 60)}ч {Math.ceil(info.duration % 60)}м
+        </div>
       </div>
       <div>
-        <div className={s['ticket-title']}>2 пересадки</div>
-        <div className={s['ticket-info']}>HKG, JNB</div>
+        <div className={s['ticket-title']}>{info.stops.length} пересадки</div>
+        <div className={s['ticket-info']}>
+          {info.origin}, {info.destination}
+        </div>
       </div>
     </div>
   );

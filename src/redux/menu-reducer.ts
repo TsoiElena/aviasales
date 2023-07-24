@@ -1,14 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface MenuState {
-  sort: string;
-}
-
-export enum menuActionTypes {
-  CHIP = 'chip',
-  FAST = 'fast',
-  OPT = 'optimal',
-}
+import { MenuState, menuActionTypes } from '../types/types';
 
 const initialState: MenuState = {
   sort: menuActionTypes.CHIP,

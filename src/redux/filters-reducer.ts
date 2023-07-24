@@ -1,16 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface filtersState {
-  all: boolean;
-  withoutTransfer: boolean;
-  oneTransfer: boolean;
-  twoTransfer: boolean;
-  threeTransfer: boolean;
-}
+import { filtersState } from '../types/types';
 
 const initialState: filtersState = {
   all: false,
-  withoutTransfer: true,
+  withoutTransfer: false,
   oneTransfer: false,
   twoTransfer: false,
   threeTransfer: false,

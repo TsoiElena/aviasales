@@ -1,34 +1,17 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type tiketType = {
-  price: number;
-  carrier: string;
-  segments: [
-    {
-      origin: string;
-      destination: string;
-      date: string;
-      stops: string[];
-      duration: number;
-    },
-    {
-      origin: string;
-      destination: string;
-      date: string;
-      stops: string[];
-      duration: number;
-    }
-  ];
-};
-
-export interface tiketsState {
-  loading: boolean;
-  tikets: Array<tiketType>;
-  error: number;
-  idError: null | string;
-  searchId: null | string;
-  stop: null | boolean;
-}
+import { tiketsState, resType, filterAC, tiketType, menuActionTypes } from '../types/types';
+import {
+  chipFilter,
+  fastFilter,
+  optFilter,
+  withoutTransferFilter,
+  oneTransferFilter,
+  twoTransferFilter,
+  threeTransferFilter,
+  deleteDuplicate,
+} from '../heplers';
 
 const initialState: tiketsState = {
   loading: false,
@@ -37,9 +20,11 @@ const initialState: tiketsState = {
   idError: null,
   searchId: null,
   stop: false,
+  sortTikets: [],
+  showTikets: [],
+  totalPage: 0,
+  page: 0,
 };
-
-type resType = { tickets: Array<tiketType>; stop: boolean };
 
 export const searcgIdFetch = createAsyncThunk<any, undefined, { rejectValue: string }>(
   'tiketsComponent/searcgIdFetch',
@@ -63,7 +48,59 @@ export const getTikets = createAsyncThunk<resType, string, { rejectValue: string
 const tiketsSlice = createSlice({
   name: 'tiketsComponent',
   initialState,
-  reducers: {},
+  reducers: {
+    chipFilterAll(state, action: PayloadAction) {
+      const arr = JSON.parse(JSON.stringify(state.tikets));
+      state.sortTikets = chipFilter(arr);
+      state.totalPage = Math.ceil(state.sortTikets.length / 5);
+      state.page = 1;
+      state.showTikets = state.sortTikets.slice(0, 5);
+    },
+    fastFilterALL(state, action: PayloadAction) {
+      const arr = JSON.parse(JSON.stringify(state.tikets));
+      state.sortTikets = fastFilter(arr);
+      state.totalPage = Math.ceil(state.sortTikets.length / 5);
+      state.page = 1;
+      state.showTikets = state.sortTikets.slice(0, 5);
+    },
+    optimalFilterAll(state, action: PayloadAction) {
+      const arr = JSON.parse(JSON.stringify(state.tikets));
+      state.sortTikets = optFilter(arr);
+      state.totalPage = Math.ceil(state.sortTikets.length / 5);
+      state.page = 1;
+      state.showTikets = state.sortTikets.slice(0, 5);
+    },
+    clear(state, action: PayloadAction) {
+      state.showTikets = [];
+      state.page = 0;
+    },
+    changePage(state, action: PayloadAction<number>) {
+      state.showTikets = state.sortTikets.slice(0, action.payload * 5);
+      state.page = action.payload;
+    },
+    filterChange(state, action: PayloadAction<filterAC>) {
+      const arr = JSON.parse(JSON.stringify(state.tikets));
+      let res: Array<tiketType> = [];
+
+      if (action.payload.withoutTransfer) res.push(...withoutTransferFilter(arr));
+      if (action.payload.oneTransfer) res.push(...oneTransferFilter(arr));
+      if (action.payload.twoTransfer) res.push(...twoTransferFilter(arr));
+      if (action.payload.threeTransfer) res.push(...threeTransferFilter(arr));
+
+      res = deleteDuplicate(res);
+
+      if (action.payload.sort === menuActionTypes.CHIP) state.sortTikets = chipFilter(res);
+      if (action.payload.sort === menuActionTypes.FAST) state.sortTikets = fastFilter(res);
+      if (action.payload.sort === menuActionTypes.OPT) state.sortTikets = optFilter(res);
+
+      state.totalPage = Math.ceil(state.sortTikets.length / 5);
+      state.page = 1;
+      state.showTikets = state.sortTikets.slice(0, 5);
+    },
+    load(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(searcgIdFetch.pending, (state) => {
@@ -75,13 +112,12 @@ const tiketsSlice = createSlice({
       .addCase(searcgIdFetch.rejected, (state, action) => {
         state.idError = 'something went wrong';
       })
-      .addCase(getTikets.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(getTikets.fulfilled, (state, action) => {
-        state.tikets = state.tikets.concat(...action.payload.tickets);
+        const arr = action.payload.tickets.map((tiket) => {
+          return { ...tiket, id: uuidv4() };
+        });
+        if (state.tikets.length < 2000) state.tikets = state.tikets.concat(...arr);
         state.stop = action.payload.stop;
-        state.loading = false;
         state.error = 0;
       })
       .addCase(getTikets.rejected, (state) => {
@@ -90,6 +126,7 @@ const tiketsSlice = createSlice({
   },
 });
 
-//export const {} = tiketsSlice.actions;
+export const { chipFilterAll, fastFilterALL, optimalFilterAll, clear, changePage, filterChange, load } =
+  tiketsSlice.actions;
 
 export default tiketsSlice.reducer;

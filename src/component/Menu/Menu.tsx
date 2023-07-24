@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { menuActionTypes } from '../../redux/menu-reducer';
+import { menuActionTypes } from '../../types/types';
 import { useAppSelector, useAppDispatch } from '../../hooks/useTypeSelector';
 import { chip, fast, opt } from '../../redux/menu-reducer';
 
