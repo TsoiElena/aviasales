@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import { getTikets, searcgIdFetch } from '../redux/tikets-reducer';
+import { useAppDispatch, useAppSelector } from '../hooks/useTypeSelector';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import logoApp from '../assets/Logo.svg';
@@ -11,6 +13,21 @@ import Page from './Page/Page';
 import Filters from './Filters/Filters';
 
 function App() {
+  const state = useAppSelector((state) => state.tiketsComponent);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(searcgIdFetch());
+  }, []);
+
+  useEffect(() => {
+    if (state.searchId) dispatch(getTikets(state.searchId));
+  }, [state.searchId]);
+
+  useEffect(() => {
+    if (!state.stop && state.searchId) dispatch(getTikets(state.searchId));
+  }, [state.tikets, state.error]);
+
+  if (state.idError) return <div>{state.idError}</div>;
   return (
     <div className={s.App}>
       <div className={s.header}>

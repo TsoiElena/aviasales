@@ -11,7 +11,6 @@ import s from './Menu.module.scss';
 const Menu: React.FC = () => {
   const { sort } = useAppSelector((state) => state.menuComponent);
   const dispatch = useAppDispatch();
-  console.log(sort);
   const handleClick = (e: any) => {
     e.preventDefault();
     if (e.target.innerHTML === 'Самый дешевый') dispatch(chip(menuActionTypes.CHIP));
