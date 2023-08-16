@@ -3,8 +3,6 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypeSelector';
 import { changePage } from '../../redux/tikets-reducer';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import s from './ShowMore.module.scss';
 
 const ShowMore = () => {

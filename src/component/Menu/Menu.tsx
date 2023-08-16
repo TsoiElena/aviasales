@@ -4,8 +4,6 @@ import { menuActionTypes } from '../../types/types';
 import { useAppSelector, useAppDispatch } from '../../hooks/useTypeSelector';
 import { cheap, fast, opt } from '../../redux/menu-reducer';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import s from './Menu.module.scss';
 
 const Menu: React.FC = () => {

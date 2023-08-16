@@ -7,8 +7,6 @@ import TicketCard from '../TicketCard/TicketCard';
 import Menu from '../Menu/Menu';
 import ShowMore from '../ShowMore/ShowMore';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import s from './Page.module.scss';
 
 const Page: React.FC = () => {

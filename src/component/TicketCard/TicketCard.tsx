@@ -1,7 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import logo from '../../assets/S7 Logo.png';
 import Ticket from '../Ticket/Ticket';
 import { tiketType } from '../../types/types';

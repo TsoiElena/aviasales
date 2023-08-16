@@ -4,8 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useTypeSelector';
 import { allAC, withoutAC, oneAC, twoAC, threeAC } from '../../redux/filters-reducer';
 import { load } from '../../redux/tikets-reducer';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import s from './Filters.module.scss';
 
 const Filters = () => {

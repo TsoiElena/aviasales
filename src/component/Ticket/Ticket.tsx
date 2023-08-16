@@ -2,8 +2,6 @@ import React from 'react';
 import add from 'date-fns/add';
 import format from 'date-fns/format';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import s from './Ticket.module.scss';
 
 type ticketInfo = {

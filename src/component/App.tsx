@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 
 import { getTikets, searcgIdFetch } from '../redux/tikets-reducer';
 import { useAppDispatch, useAppSelector } from '../hooks/useTypeSelector';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import logoApp from '../assets/Logo.svg';
 
 import s from './App.module.scss';
