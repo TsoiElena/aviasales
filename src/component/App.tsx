@@ -6,8 +6,6 @@ import { useAppDispatch, useAppSelector } from '../hooks/useTypeSelector';
 // @ts-ignore
 import logoApp from '../assets/Logo.svg';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import s from './App.module.scss';
 import Page from './Page/Page';
 import Filters from './Filters/Filters';

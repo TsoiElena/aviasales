@@ -2,7 +2,7 @@ import React from 'react';
 
 import { menuActionTypes } from '../../types/types';
 import { useAppSelector, useAppDispatch } from '../../hooks/useTypeSelector';
-import { chip, fast, opt } from '../../redux/menu-reducer';
+import { cheap, fast, opt } from '../../redux/menu-reducer';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -13,7 +13,7 @@ const Menu: React.FC = () => {
   const dispatch = useAppDispatch();
   const handleClick = (e: any) => {
     e.preventDefault();
-    if (e.target.innerHTML === 'Самый дешевый') dispatch(chip(menuActionTypes.CHIP));
+    if (e.target.innerHTML === 'Самый дешевый') dispatch(cheap(menuActionTypes.CHEAP));
     if (e.target.innerHTML === 'Самый быстрый') dispatch(fast(menuActionTypes.FAST));
     if (e.target.innerHTML === 'Оптимальный') dispatch(opt(menuActionTypes.OPT));
   };
@@ -21,7 +21,9 @@ const Menu: React.FC = () => {
   return (
     <div className={s.menu}>
       <button
-        className={sort === menuActionTypes.CHIP ? `${s['menu-button']} ${s['menu-button--active']}` : s['menu-button']}
+        className={
+          sort === menuActionTypes.CHEAP ? `${s['menu-button']} ${s['menu-button--active']}` : s['menu-button']
+        }
         onClick={handleClick}
       >
         Самый дешевый

@@ -2,7 +2,7 @@ import { uniqWith, isEqual } from 'lodash';
 
 import { tiketType } from './types/types';
 
-export const chipFilter = (arr: Array<tiketType>) => {
+export const cheapFilter = (arr: Array<tiketType>) => {
   return arr.sort((a: tiketType, b: tiketType) => {
     return a.price - b.price;
   });
@@ -16,7 +16,7 @@ export const fastFilter = (arr: Array<tiketType>) => {
 
 export const optFilter = (arr: Array<tiketType>) => {
   const fastArr = fastFilter(arr);
-  const resArr = chipFilter(fastArr);
+  const resArr = cheapFilter(fastArr);
   return resArr;
 };
 

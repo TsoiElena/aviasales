@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { tiketsState, resType, filterAC, tiketType, menuActionTypes } from '../types/types';
 import {
-  chipFilter,
+  cheapFilter,
   fastFilter,
   optFilter,
   withoutTransferFilter,
@@ -49,9 +49,9 @@ const tiketsSlice = createSlice({
   name: 'tiketsComponent',
   initialState,
   reducers: {
-    chipFilterAll(state, action: PayloadAction) {
+    cheapFilterAll(state, action: PayloadAction) {
       const arr = JSON.parse(JSON.stringify(state.tikets));
-      state.sortTikets = chipFilter(arr);
+      state.sortTikets = cheapFilter(arr);
       state.totalPage = Math.ceil(state.sortTikets.length / 5);
       state.page = 1;
       state.showTikets = state.sortTikets.slice(0, 5);
@@ -89,7 +89,7 @@ const tiketsSlice = createSlice({
 
       res = deleteDuplicate(res);
 
-      if (action.payload.sort === menuActionTypes.CHIP) state.sortTikets = chipFilter(res);
+      if (action.payload.sort === menuActionTypes.CHEAP) state.sortTikets = cheapFilter(res);
       if (action.payload.sort === menuActionTypes.FAST) state.sortTikets = fastFilter(res);
       if (action.payload.sort === menuActionTypes.OPT) state.sortTikets = optFilter(res);
 
@@ -126,7 +126,7 @@ const tiketsSlice = createSlice({
   },
 });
 
-export const { chipFilterAll, fastFilterALL, optimalFilterAll, clear, changePage, filterChange, load } =
+export const { cheapFilterAll, fastFilterALL, optimalFilterAll, clear, changePage, filterChange, load } =
   tiketsSlice.actions;
 
 export default tiketsSlice.reducer;

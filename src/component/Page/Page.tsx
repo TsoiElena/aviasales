@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypeSelector';
 import { menuActionTypes } from '../../types/types';
-import { chipFilterAll, fastFilterALL, optimalFilterAll, clear, filterChange, load } from '../../redux/tikets-reducer';
+import { cheapFilterAll, fastFilterALL, optimalFilterAll, clear, filterChange, load } from '../../redux/tikets-reducer';
 import TicketCard from '../TicketCard/TicketCard';
 import Menu from '../Menu/Menu';
 import ShowMore from '../ShowMore/ShowMore';
@@ -37,7 +37,7 @@ const Page: React.FC = () => {
     dispatch(clear());
     if (all && tikets.length) {
       dispatch(load(true));
-      if (sort === menuActionTypes.CHIP) dispatch(chipFilterAll());
+      if (sort === menuActionTypes.CHEAP) dispatch(cheapFilterAll());
       if (sort === menuActionTypes.FAST) dispatch(fastFilterALL());
       if (sort === menuActionTypes.OPT) dispatch(optimalFilterAll());
     }

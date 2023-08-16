@@ -11,7 +11,7 @@ export interface MenuState {
 }
 
 export enum menuActionTypes {
-  CHIP = 'chip',
+  CHEAP = 'cheap',
   FAST = 'fast',
   OPT = 'optimal',
 }
