@@ -19,7 +19,7 @@ const Page: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if ((!all && !withoutTransfer && !oneTransfer && !twoTransfer && !threeTransfer) || !tikets.length) {
+    if (!tikets.length) {
       setError(true);
       dispatch(clear());
     } else if (!sortTikets.length) {
@@ -29,18 +29,18 @@ const Page: React.FC = () => {
     } else {
       if (error) setError(false);
     }
-  }, [all, withoutTransfer, oneTransfer, twoTransfer, threeTransfer, tikets, sortTikets]);
+  }, [tikets, sortTikets]);
 
   useEffect(() => {
     dispatch(clear());
-    if (all && tikets.length) {
+    if ((all && tikets.length) || (!all && !withoutTransfer && !oneTransfer && !twoTransfer && !threeTransfer)) {
       dispatch(load(true));
       if (sort === menuActionTypes.CHEAP) dispatch(cheapFilterAll());
       if (sort === menuActionTypes.FAST) dispatch(fastFilterALL());
       if (sort === menuActionTypes.OPT) dispatch(optimalFilterAll());
     }
     dispatch(load(false));
-  }, [all, tikets, sort]);
+  }, [all, tikets, sort, withoutTransfer, oneTransfer, twoTransfer, threeTransfer]);
 
   useEffect(() => {
     if (withoutTransfer && oneTransfer && twoTransfer && threeTransfer) return;
