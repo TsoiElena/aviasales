@@ -1,2 +1,2 @@
-deploy: https://vercel.com/tsoielena/aviasales/3oc1TpytdpYgiXkA9WBnPachWpKY
+deploy: https://vercel.com/tsoielena/aviasales/CP1FcPaC4MtXAWq5YsxFmD8fBHej
 site: https://aviasales-kzmkcjeu3-tsoielena.vercel.app/
