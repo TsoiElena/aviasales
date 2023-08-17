@@ -11,7 +11,6 @@ type tiketCardType = {
 };
 
 const TicketCard: React.FC<tiketCardType> = ({ ticket }) => {
-  console.log(ticket);
   return (
     <div className={s.card}>
       <div className={s['card-info']}>
