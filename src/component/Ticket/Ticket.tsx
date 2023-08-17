@@ -46,7 +46,12 @@ const Ticket: React.FC<TicketProps> = ({ info }) => {
       <div>
         <div className={s['ticket-title']}>{info.stops.length} пересадки</div>
         <div className={s['ticket-info']}>
-          {info.origin}, {info.destination}
+          {info.stops.length
+            ? info.stops.map((stop, index) => {
+                if (index === info.stops.length - 1) return stop;
+                return `${stop}, `;
+              })
+            : ''}
         </div>
       </div>
     </div>
